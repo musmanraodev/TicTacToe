@@ -64,6 +64,7 @@
      font-size: 150px;
      background-image: url("images/box.jpg");
      border-width: 0px;
+     outline: none;
  }
  
  .box:hover {

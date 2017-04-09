@@ -7,4 +7,4 @@ You Thought You Are Good In Tic Tac Toe?
 Because Now You Can Play Player Vs Player!
 <br>
 <br>
-Skills: JAVASCRIPT, DOM, CSS, HTML
+Skills: Javascript, DOM, Css, Html.

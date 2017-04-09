@@ -1,0 +1,163 @@
+ #gamearea {
+     display: none;
+ }
+ 
+ body {
+     background-image: url("images/background.png");
+ }
+ 
+ .button {
+     margin-top: 40vh;
+     -moz-box-shadow: inset 0px 0px 0px 0px #cf866c;
+     -webkit-box-shadow: inset 0px 0px 0px 0px #cf866c;
+     box-shadow: inset 0px 0px 0px 0px #cf866c;
+     background: linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#d0451b', endColorstr='#bc3315', GradientType=0);
+     background-color: #d0451b;
+     -moz-border-radius: 20px;
+     -webkit-border-radius: 20px;
+     border-radius: 20px;
+     border: 1px solid #942911;
+     display: inline-block;
+     cursor: pointer;
+     color: #ffffff;
+     font-family: Arial;
+     font-size: 28px;
+     font-weight: bold;
+     padding: 18px 30px;
+     text-decoration: none;
+     text-shadow: 0px 1px 38px #854629;
+     position: absolute;
+     left: 47%;
+     text-align: center;
+ }
+ 
+ .button:hover {
+     background: linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#bc3315', endColorstr='#d0451b', GradientType=0);
+     background-color: #bc3315;
+ }
+ 
+ .button:active {
+     position: relative;
+     top: 1px;
+ }
+ 
+ .buttona {
+     margin-top: 38vh;
+     margin-left: 82vh;
+ }
+ 
+ .buttonb {
+     margin-top: 3vh;
+     margin-left: 79vh;
+ }
+ 
+ .box {
+     display: inline-block;
+     height: 200px;
+     width: 200px;
+     background-color: #eeeeee;
+     border-radius: 30px;
+     text-align: center;
+     margin: 4px;
+     font-size: 150px;
+     background-image: url("images/box.jpg");
+     border-width: 0px;
+ }
+ 
+ .box:hover {
+     opacity: 0.9;
+ }
+ 
+ #bluecolor {
+     color: blue;
+ }
+ 
+ .whole {
+     width: 800px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: center;
+     margin-top: 11vh;
+ }
+ 
+ @-webkit-keyframes flash {
+     from,
+     50%,
+     to {
+         opacity: 1;
+     }
+     25%,
+     75% {
+         opacity: 0;
+     }
+ }
+ 
+ @keyframes flash {
+     from,
+     50%,
+     to {
+         opacity: 1;
+     }
+     25%,
+     75% {
+         opacity: 0;
+     }
+ }
+ 
+ .flash {
+     -webkit-animation-name: flash;
+     animation-name: flash;
+ }
+ 
+ #bluecolor {
+     animation-name: flash;
+     animation-duration: 3s;
+ }
+ 
+ @-webkit-keyframes bounceOut {
+     20% {
+         -webkit-transform: scale3d(.9, .9, .9);
+         transform: scale3d(.9, .9, .9);
+     }
+     50%,
+     55% {
+         opacity: 1;
+         -webkit-transform: scale3d(1.1, 1.1, 1.1);
+         transform: scale3d(1.1, 1.1, 1.1);
+     }
+     to {
+         opacity: 0;
+         -webkit-transform: scale3d(.3, .3, .3);
+         transform: scale3d(.3, .3, .3);
+     }
+ }
+ 
+ @keyframes bounceOut {
+     20% {
+         -webkit-transform: scale3d(.9, .9, .9);
+         transform: scale3d(.9, .9, .9);
+     }
+     50%,
+     55% {
+         opacity: 1;
+         -webkit-transform: scale3d(1.1, 1.1, 1.1);
+         transform: scale3d(1.1, 1.1, 1.1);
+     }
+     to {
+         opacity: 0;
+         -webkit-transform: scale3d(.3, .3, .3);
+         transform: scale3d(.3, .3, .3);
+     }
+ }
+ 
+ .bounceOut {
+     -webkit-animation-name: bounceOut;
+     animation-name: bounceOut;
+ }
+ 
+ .zom {
+     animation-name: bounceOut;
+     animation-duration: 1s;
+ }

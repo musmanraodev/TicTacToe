@@ -1,150 +1,93 @@
-let a = {
-    1: 'empty',
-    2: 'empty',
-    3: 'empty',
-    4: 'empty',
-    5: 'empty',
-    6: 'empty',
-    7: 'empty',
-    8: 'empty',
-    9: 'empty'
+let currentPlayer = "X",
+    board = [...new Array(9)].map((_, i) => i),
+    inputsContainerElem = document.querySelector(`.inputsContainer`),
+    allInputsElem = [...inputsContainerElem.children],
+    restartBttnElem = document.querySelector(`.restartBttn`),
+    h1Elem = document.querySelector("h1"),
+    bttnsContainerElem = document.querySelector(".bttnsContainer"),
+    isAIPlaying = false,
+    hasGameEnded = false;
+
+inputsContainerElem.addEventListener("click", (item) => handleInputClick(item.target.id));
+
+const handleInputClick = (index) => {
+    if (isNaN(board[index]) || hasGameEnded) return;
+    allInputsElem[index].value = board[index] = currentPlayer;
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+    if (isThereWinner(board) || isTie(board)) onGameEnd();
+    if (currentPlayer === "O" && isAIPlaying) AITurn(board);
+};
+
+function onGameEnd() {
+    restartBttnElem.classList.remove("hide");
+    const hasSomeoneWon = isThereWinner(board);
+    if (hasSomeoneWon) hasSomeoneWon.forEach((item) => allInputsElem[item].classList.add("winningAnimation"));
+    setTimeout(() => (hasSomeoneWon ? alert(`${isAIPlaying ? "AI" : currentPlayer === "O" ? "Player 1" : "Player 2"} has won the Game`) : alert(`It is a tie`)), 1);
+    hasGameEnded = true;
 }
 
-let b = {
-    1: true,
-    2: true,
-    3: true,
-    4: true,
-    5: true,
-    6: true,
-    7: true,
-    8: true,
-    9: true
-}
+function AITurn(arr) {
+    let bestScores = -Infinity;
+    let bestIndex = 0;
 
-let turn = ["X", "O", "X", "O", "X", "O", "X", "O", "X"]
-let i = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (!isNaN(arr[i])) {
+            arr[i] = "O";
+            const score = miniMax(arr);
+            arr[i] = i;
 
-function check(btn) {
-
-    function finish() {
-        for (let key in b) {
-            b[key] = false;
+            if (score > bestScores) {
+                bestScores = score;
+                bestIndex = i;
+            }
         }
-        setTimeout(function() {
-            alert("We have A Winner!");
-        }, 1);
     }
 
-    switch (btn.name) {
-        case "b1":
-            b[1] && box(1);
-            break;
-
-        case "b2":
-            b[2] && box(2);
-            break;
-
-        case "b3":
-            b[3] && box(3);
-            break;
-
-        case "b4":
-            b[4] && box(4);
-            break;
-
-        case "b5":
-            b[5] && box(5);
-            break;
-
-        case "b6":
-            b[6] && box(6);
-            break;
-
-        case "b7":
-            b[7] && box(7);
-            break;
-
-        case "b8":
-            b[8] && box(8);
-            break;
-
-        case "b9":
-            b[9] && box(9);
-            break;
-    }
-
-    function box(value) {
-        btn.value = turn[i];
-        b[value] = false;
-        a[value] = turn[i];
-        i += 1;
-    }
-
-    if ((a[1] === "X" && a[2] === "X" && a[3] === "X") ||
-        (a[1] === "O" && a[2] === "O" && a[3] === "O")) {
-        tic.b1.id = "bluecolor";
-        tic.b2.id = "bluecolor";
-        tic.b3.id = "bluecolor";
-        bluecolor(b1, b2, b3);
-        finish();
-    } else if ((a[4] === "X" && a[5] === "X" && a[6] === "X") ||
-        (a[4] === "O" && a[5] === "O" && a[6] === "O")) {
-        tic.b4.id = "bluecolor";
-        tic.b5.id = "bluecolor";
-        tic.b6.id = "bluecolor";
-        finish();
-    } else if ((a[7] === "X" && a[8] === "X" && a[9] === "X") ||
-        (a[7] === "O" && a[8] === "O" && a[9] === "O")) {
-        tic.b7.id = "bluecolor";
-        tic.b8.id = "bluecolor";
-        tic.b9.id = "bluecolor";
-        finish();
-
-    } else if ((a[1] === "X" && a[4] === "X" && a[7] === "X") ||
-        (a[1] === "O" && a[4] === "O" && a[7] === "O")) {
-        tic.b1.id = "bluecolor";
-        tic.b4.id = "bluecolor";
-        tic.b7.id = "bluecolor";
-        finish();
-    } else if ((a[2] === "X" && a[5] === "X" && a[8] === "X") ||
-        (a[2] === "O" && a[5] === "O" && a[8] === "O")) {
-        tic.b2.id = "bluecolor";
-        tic.b5.id = "bluecolor";
-        tic.b8.id = "bluecolor";
-        finish();
-    } else if ((a[3] === "X" && a[6] === "X" && a[9] === "X") ||
-        (a[3] === "O" && a[6] === "O" && a[9] === "O")) {
-        tic.b3.id = "bluecolor";
-        tic.b6.id = "bluecolor";
-        tic.b9.id = "bluecolor";
-        finish();
-
-    } else if ((a[1] === "X" && a[5] === "X" && a[9] === "X") ||
-        (a[1] === "O" && a[5] === "O" && a[9] === "O")) {
-        tic.b1.id = "bluecolor";
-        tic.b5.id = "bluecolor";
-        tic.b9.id = "bluecolor";
-        finish();
-    } else if ((a[3] === "X" && a[5] === "X" && a[7] === "X") ||
-        (a[3] === "O" && a[5] === "O" && a[7] === "O")) {
-        tic.b3.id = "bluecolor";
-        tic.b5.id = "bluecolor";
-        tic.b7.id = "bluecolor";
-        finish();
-    } else if (!b[1] && !b[2] && !b[3] && !b[4] && !b[5] && !b[6] && !b[7] && !b[8] && !b[9]) {
-        setTimeout(function() {
-            alert("It is a Tie!");
-        }, 1);
-    }
+    allInputsElem[bestIndex].click();
 }
 
-function start() {
-    let start = document.getElementById('start');
-    let gamearea = document.getElementById('gamearea');
-    start.className += ' zom';
-    setTimeout(function() {
-        start.style.display = 'none';
-        gamearea.style.display = 'block';
-    }, 900);
+function miniMax(arr, isAITurn = false) {
+    if (isThereWinner(arr)) {
+        return isAITurn ? -1 : 1;
+    } else if (isTie(arr)) {
+        return 0;
+    }
+
+    let bestScores = isAITurn ? -Infinity : Infinity;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (!isNaN(arr[i])) {
+            arr[i] = isAITurn ? "O" : "X";
+            const score = miniMax(arr, !isAITurn);
+            bestScores = isAITurn ? Math.max(score, bestScores) : Math.min(score, bestScores);
+            arr[i] = i;
+        }
+    }
+    return bestScores;
+}
+
+const winnerConditionsArr = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+];
+
+const isThereWinner = (arr) => winnerConditionsArr.find((conditionArr) => conditionArr.every((index) => arr[index] === arr[conditionArr[0]]));
+const isTie = (arr) => arr.every((item) => isNaN(item));
+
+function start(ai) {
+    isAIPlaying = ai;
+    h1Elem.innerHTML += ` With ${ai ? "AI" : "Friend"}`;
+    bttnsContainerElem.classList.add("hide");
+    inputsContainerElem.classList.remove("hide");
+}
+
+function restart() {
+    window.location.reload();
 }
